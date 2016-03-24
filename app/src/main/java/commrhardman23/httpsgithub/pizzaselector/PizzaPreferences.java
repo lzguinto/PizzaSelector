@@ -55,16 +55,59 @@ public class PizzaPreferences extends AppCompatActivity {
      * of costs.
      * @param vw is the button associated with the calculateCost method
      */
-    public void calculateCost(View vw){
+    public void calculateCost(View vw) {
 
         Intent calculatePizzaCost = new Intent(this, CostCalculator.class);
         boolean[] hasToppings = new boolean[toppings.length];
+        String pizzaSize;
+        String crustType;
+        String garlic;
 
         //insert your code here
+        for (int i = 0; i < toppings.length; i++) {
+            if (toppings[i].isChecked()) {
+                hasToppings[i] = true;
+            } else {
+                hasToppings[i] = false;
+            }
+        }
+
+        if (rdobtnIndividual.isChecked()) {
+            pizzaSize = "Individual";
+        } else if (rdobtnSmall.isChecked()) {
+            pizzaSize = "Small";
+        } else if (rdobtnMedium.isChecked()) {
+            pizzaSize = "Medium";
+        } else if (rdobtnLarge.isChecked()) {
+            pizzaSize = "Large";
+        } else if (rdobtnExtraLarge.isChecked()) {
+            pizzaSize = "Extra Large";
+        } else
+            pizzaSize = "No size has been selected.";
+
+        if (rdobtnThin.isChecked()) {
+            crustType = "Thin";
+        } else if (rdobtnThick.isChecked()) {
+            crustType = "Thick";
+        } else if (rdobtnCheeseFilled.isChecked()) {
+            crustType = "Cheese Filled";
+        } else {
+            crustType = "No crust type selected.";
+        }
+
+        if (chkboxGarlic.isChecked()) {
+            garlic = "Garlic";
+        } else {
+            garlic = "No garlic";
+        }
 
         calculatePizzaCost.putExtra("TOPPINGS_BOOLEANS", hasToppings);
+        calculatePizzaCost.putExtra("SIZE_SELECTION", pizzaSize);
+        calculatePizzaCost.putExtra("CRUST_SELECTION", crustType);
+        calculatePizzaCost.putExtra("HAS_GARLIC_CRUST", garlic);
         startActivityForResult(calculatePizzaCost, 0);
-    }
+
+        }
 
     /**
      * onActivityResult is the code that is run upon completion of the Intent linked to this
